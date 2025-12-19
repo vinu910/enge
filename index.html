@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engagement – Image Viewer</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #00d4ff;
+  }
+
+  .box {
+    background: #000;
+    border-radius: 12px;
+    padding: 50px 20px;
+    font-size: 18px;
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+  }
+
+  button {
+    flex: 1;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #00d4ff;
+    color: #000;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #00aacc;
+    transform: scale(1.05);
+  }
+
+  .audio-btn {
+    background: #ffd700;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Engagement<br>
+  Vinu & Kaali</h1>
+
+  <div class="box" id="box">
+    Click Next to open image
+  </div>
+
+  <div class="buttons">
+    <button onclick="prev()">◀ Prev</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+  <!-- Audio Button -->
+  <div class="buttons">
+    <button class="audio-btn" onclick="playAudio()">🔊 Play Audio</button>
+  </div>
+
+</div>
+
+<script>
+  const images = [
+    "https://ibb.co/1G9Kqr8X",
+    "https://ibb.co/twfTJySL",
+    "https://ibb.co/39tXwXKQ",
+    "https://ibb.co/6cbFkp3Y",
+    "https://ibb.co/0y1wpDpG",
+    "https://ibb.co/DDkwCcgF",
+    "https://ibb.co/JFtjhStk",
+    "https://ibb.co/bMPCLXkh",
+    "https://ibb.co/fZZfkYm",
+    "https://ibb.co/DHCY5ffV",
+    "https://ibb.co/dJQP39GX",
+    "https://ibb.co/rRHC8KWM",
+    "https://ibb.co/LfTnC3h",
+    "https://ibb.co/PvFYcrNj",
+    "https://ibb.co/bjkkvSnT",
+    "https://ibb.co/DDtZ92Yw"
+  ];
+
+  let index = 0;
+
+  function openImage() {
+    window.open(images[index], "_blank");
+    document.getElementById("box").innerText =
+      `Image ${index + 1} opened in new tab`;
+  }
+
+  function next() {
+    index = (index + 1) % images.length;
+    openImage();
+  }
+
+  function prev() {
+    index = (index - 1 + images.length) % images.length;
+    openImage();
+  }
+
+  /* 🔊 TEXT TO SPEECH */
+  function playAudio() {
+    const text =
+      "Ye Jaipal aur Kanta ki sagai ki image hai, jisme meri pyari sasu ji bhi hai or kanta jinka nik naam hai Kaali hai ish mouke pe unki sabhi sister bhi mojud thi or kanta ke do bade bhai bhi the bade bhai ka naam satish ji or chhote bhai naam vinod hai ye ek yaadon se bhari hui tasvir hai.";
+
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "hi-IN";   // Hindi voice
+    speech.rate = 0.9;       // slow & emotional
+    speech.pitch = 1;
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
+  }
+</script>
+
+</body>
+</html>
